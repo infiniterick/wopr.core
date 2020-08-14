@@ -1,0 +1,4 @@
+#!/bin/sh
+VERSION=1.0.2
+dotnet pack --configuration Release
+dotnet nuget push bin/Release/Wopr.Core.$VERSION.nupkg --source "github"

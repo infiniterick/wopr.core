@@ -96,9 +96,6 @@ namespace Wopr.Core
         public string Emote { get; set; }
     }
 
-
-
-
     public class UserUpdated
     {
         public UserUpdated() { MessageType = "UserUpdated"; }

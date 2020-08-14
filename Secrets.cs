@@ -1,14 +1,17 @@
 using System;
 using System.IO;
 
-namespace Wopr.Core {
-    public class Secrets {
+namespace Wopr.Core 
+{
+    public class Secrets 
+    {
         public string RedisToken { get; set; }
         public string StackToken { get; set; }
         public string DiscordToken { get; set; }
 
 
-        public static Secrets Load(string secretsDir){
+        public static Secrets Load(string secretsDir)
+        {
             var secrets = new Secrets();
             var redisTokenPath = Path.Combine(secretsDir, "RedisToken");
             var stackTokenPath = Path.Combine(secretsDir, "StackToken");
