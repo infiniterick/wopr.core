@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Wopr.Core</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>infiniterick</Authors>
+    <Company>BKP</Company>
+    <PackageDescription>WOPR shared stuff</PackageDescription>
+    <RepositoryUrl>https://github.com/infiniterick/wopr.core</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
