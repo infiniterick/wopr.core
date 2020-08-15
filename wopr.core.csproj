@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Wopr.Core</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>infiniterick</Authors>
     <Company>BKP</Company>
     <PackageDescription>WOPR shared stuff</PackageDescription>
