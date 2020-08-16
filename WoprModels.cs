@@ -107,20 +107,50 @@ namespace Wopr.Core
         public Activity Activity { get; set; }
     }
 
-    public class AddText
+    public class AddContent
     {
-        public AddText() { MessageType = "AddText"; }
+        public AddContent() { MessageType = "AddContent"; }
         public string MessageType { get; set; }
-        public NamedEntity Channel { get; set; }
-        public string Text { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string ChannelId { get; set; }
+        public string Content { get; set; }
+    }
+
+    public class RemoveContent
+    {
+        public RemoveContent() { MessageType = "RemoveContent"; }
+        public string MessageType { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string ChannelId { get; set; }
+        public string MessageId { get; set; }
     }
 
     public class AddReaction
     {
         public AddReaction() { MessageType = "AddReaction"; }
         public string MessageType { get; set; }
+        public DateTime Timestamp { get; set; }
         public string ChannelId { get; set; }
         public string MessageId { get; set; }
-        public string Reaction { get; set; }
+        public string Emote { get; set; }
+    }
+
+    public class RemoveReaction
+    {
+        public RemoveReaction() { MessageType = "RemoveReaction"; }
+        public string MessageType { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string ChannelId { get; set; }
+        public string MessageId { get; set; }
+        public string Emote { get; set; }
+    }
+
+    public class RemoveAllReactions
+    {
+        public RemoveAllReactions() { MessageType = "RemoveAllReactions"; }
+        public string MessageType { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string ChannelId { get; set; }
+        public string MessageId { get; set; }
     }
 }
