@@ -4,17 +4,11 @@ namespace Wopr.Core
     //also need to make it clear which are events and which are data
     public class RedisPaths
     {
-        public const string ControlReady = "wopr:discord:control:ready";
-        public const string ControlFresh = "wopr:discord:control:fresh";
-        public const string ControlProcessed = "wopr:discord:control:processed";
+        public const string DiscordBackup = "wopr:discord:backup";
 
-        public const string DataReady = "wopr:discord:data:ready";
-        public const string DataFresh = "wopr:discord:data:fresh";
-        public const string DataProcessed = "wopr:discord:data:processed";
-        public const string DataProcessing = "wopr:discord:data:processing";
-        public const string DataDead = "wopr:discord:data:dead";
-        public const string DataArchive = "wopr:discord:data:archive";
-
+        public const string ImageDLMessageWatch = "wopr:imgdl:watch:msg";
+        public const string ImageDLChannelWatch = "wopr:imgdl:watch:channel";
+        public const string ImageDLAuthorWatch = "wopr:imgdl:watch:author";
 
         public const string ModelServerInfo = "wopr:discord:model:serverinfo";
         public const string ModelChannel = "wopr:discord:model:channel";

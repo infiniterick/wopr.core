@@ -2,6 +2,24 @@ using System;
 
 namespace Wopr.Core
 {
+
+    public interface IWoprMessage{
+        string MessageType {get; set;}
+        DateTime Timestamp {get; set;}
+    }
+
+    public interface IChannelFilterable {
+        string ChannelId { get; }
+    }
+
+    public interface IMessageFilterable {
+        string MessageId { get; }
+    }
+
+    public interface IAuthorFilterable {
+        string AuthorId { get; }
+    }
+
     //Named entities are things with a stable id, and unstable display name (Channels, Authors, etc)
     public class NamedEntity
     {
@@ -24,14 +42,14 @@ namespace Wopr.Core
         public string Details { get; set; }
     }
 
-    public class Connected
+    public class Connected : IWoprMessage
     {
         public Connected() { MessageType = "Connected"; }
         public string MessageType { get; set; }
         public DateTime Timestamp { get; set; }
     }
 
-    public class Disconnected
+    public class Disconnected : IWoprMessage
     {
         public Disconnected() { MessageType = "Disconnected"; }
         public string MessageType { get; set; }
@@ -39,20 +57,22 @@ namespace Wopr.Core
         public string ExtraInfo { get; set; }
     }
 
-    public class ContentReceived
+    public class ContentReceived : IWoprMessage, IChannelFilterable, IAuthorFilterable
     {
         public ContentReceived() { MessageType = "ContentReceived"; }
         public string MessageType { get; set; }
         public DateTime Timestamp { get; set; }
 
         public string MessageId { get; set; }
+        public string ChannelId {get {return this.Channel?.Id;}}
+        public string AuthorId {get {return this.Author?.Id;}}
         public NamedEntity Channel { get; set; }
         public NamedEntity Author { get; set; }
         public string Content { get; set; }
         public string AttatchmentUri { get; set; }
     }
 
-    public class ContentUpdated
+    public class ContentUpdated : IWoprMessage, IChannelFilterable, IAuthorFilterable
     {
         public ContentUpdated() { MessageType = "ContentUpdated"; }
         public string MessageType { get; set; }
@@ -61,42 +81,47 @@ namespace Wopr.Core
         //original allways seems to match message in testing
         public string OriginalId { get; set; }
         public string MessageId { get; set; }
+        public string ChannelId {get {return this.Channel?.Id;}}
+        public string AuthorId {get {return this.Author?.Id;}}
         public NamedEntity Channel { get; set; }
         public NamedEntity Author { get; set; }
         public string Content { get; set; }
         public string AttatchmentUri { get; set; }
     }
 
-    public class ContentDeleted
+    public class ContentDeleted: IWoprMessage, IChannelFilterable
     {
         public ContentDeleted() { MessageType = "ContentDeleted"; }
         public string MessageType { get; set; }
         public DateTime Timestamp { get; set; }
         public string OriginalId { get; set; }
+        public string ChannelId {get {return this.Channel?.Id;}}
         public NamedEntity Channel { get; set; }
     }
 
-    public class ReactionAdded
+    public class ReactionAdded: IWoprMessage, IChannelFilterable, IMessageFilterable
     {
         public ReactionAdded() { MessageType = "ReactionAdded"; }
         public string MessageType { get; set; }
         public DateTime Timestamp { get; set; }
         public NamedEntity Channel { get; set; }
         public string MessageId { get; set; }
+        public string ChannelId {get {return this.Channel?.Id;}}
         public string Emote { get; set; }
     }
 
-    public class ReactionRemoved
+    public class ReactionRemoved: IWoprMessage, IChannelFilterable, IMessageFilterable
     {
         public ReactionRemoved() { MessageType = "ReactionRemoved"; }
         public string MessageType { get; set; }
         public DateTime Timestamp { get; set; }
         public NamedEntity Channel { get; set; }
         public string MessageId { get; set; }
+        public string ChannelId {get {return this.Channel?.Id;}}
         public string Emote { get; set; }
     }
 
-    public class UserUpdated
+    public class UserUpdated: IWoprMessage, IAuthorFilterable
     {
         public UserUpdated() { MessageType = "UserUpdated"; }
         public string MessageType { get; set; }
@@ -105,9 +130,24 @@ namespace Wopr.Core
         public NamedEntity User { get; set; }
         public string Status { get; set; }
         public Activity Activity { get; set; }
+
+        public string AuthorId {get {return this.User?.Id;}}
     }
 
-    public class AddContent
+    public class ImageDownloaded: IWoprMessage, IChannelFilterable, IMessageFilterable
+    {
+        public ImageDownloaded() { MessageType = "ImageDownloaded"; }
+        public string MessageType { get; set; }
+        public DateTime Timestamp { get; set; }
+        
+        public string ChannelId {get; set;}
+        public string MessageId {get; set;}
+    }
+
+
+    //Outgoing discord command messages
+
+    public class AddContent: IWoprMessage
     {
         public AddContent() { MessageType = "AddContent"; }
         public string MessageType { get; set; }
@@ -116,7 +156,7 @@ namespace Wopr.Core
         public string Content { get; set; }
     }
 
-    public class RemoveContent
+    public class RemoveContent: IWoprMessage
     {
         public RemoveContent() { MessageType = "RemoveContent"; }
         public string MessageType { get; set; }
@@ -125,7 +165,7 @@ namespace Wopr.Core
         public string MessageId { get; set; }
     }
 
-    public class AddReaction
+    public class AddReaction: IWoprMessage
     {
         public AddReaction() { MessageType = "AddReaction"; }
         public string MessageType { get; set; }

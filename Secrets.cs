@@ -8,6 +8,7 @@ namespace Wopr.Core
         public string RedisToken { get; set; }
         public string StackToken { get; set; }
         public string DiscordToken { get; set; }
+        public string RabbitToken { get; set; }
 
 
         public static Secrets Load(string secretsDir)
@@ -16,6 +17,7 @@ namespace Wopr.Core
             var redisTokenPath = Path.Combine(secretsDir, "RedisToken");
             var stackTokenPath = Path.Combine(secretsDir, "StackToken");
             var discordTokenPath = Path.Combine(secretsDir, "DiscordToken");
+            var rabbitTokenPath = Path.Combine(secretsDir, "RabbitToken");
 
             if(File.Exists(redisTokenPath))
                 secrets.RedisToken = File.ReadAllText(redisTokenPath).Replace(Environment.NewLine, "");
@@ -31,6 +33,12 @@ namespace Wopr.Core
                 secrets.DiscordToken = File.ReadAllText(discordTokenPath).Replace(Environment.NewLine, "");
             else
                 secrets.DiscordToken = Environment.GetEnvironmentVariable("DiscordToken");
+
+
+            if(File.Exists(rabbitTokenPath))
+                secrets.RabbitToken = File.ReadAllText(rabbitTokenPath).Replace(Environment.NewLine, "");
+            else
+                secrets.RabbitToken = Environment.GetEnvironmentVariable("RabbitToken");
 
             return secrets;
         }
